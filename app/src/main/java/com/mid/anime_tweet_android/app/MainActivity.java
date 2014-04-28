@@ -67,5 +67,8 @@ public class MainActivity extends Activity implements OnMessageHandler {
     @Override
     public void onMessage(String message) {
         listViewAdapter.add(message);
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setSelection(listView.getCount() - 1);
     }
 }

@@ -26,8 +26,11 @@ public class ListViewAdapter extends ArrayAdapter<String> {
     public void add(String value) {
         super.add(value);
 
-        // TODO メモリを消費しないように直近の30個だけリストを保持する
-
+        // 直近の30個だけリストを保持する
+        int size = getCount();
+        if(size > 30) {
+            remove(getItem(0));
+        }
     }
 
     @Override
