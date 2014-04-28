@@ -17,7 +17,8 @@ import java.net.MalformedURLException;
 public class SocketConnector {
 
     private static final String TAG = SocketConnector.class.getClass().getName();
-    public static final String SOCKET_SERVER = "http://192.168.0.6:3000/";
+
+    public static final String SOCKET_SERVER = "http://anime-tweet.herokuapp.com/";
     OnMessageHandler messageHandler;
 
     public void setOnMessageHandler(OnMessageHandler handler) {
