@@ -2,33 +2,46 @@ package com.mid.anime_tweet_android.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import com.mid.anime_tweet_android.socket.OnMessageHandler;
+import com.mid.anime_tweet_android.socket.SocketConnector;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnMessageHandler {
+
+    private static final String TAG = MainActivity.class.getName();
+    Handler handler;
+    private ListViewAdapter listViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ListView listview = (ListView) findViewById(R.id.listView);
-        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile" };
-
         final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
+        listViewAdapter = new ListViewAdapter(this, list);
+
+        // ListView
+        final ListView listview = (ListView) findViewById(R.id.listView);
+        listview.setAdapter(listViewAdapter);
+
+        handler = new Handler();
+
+        // Socket作成
+        try {
+            SocketConnector socket = new SocketConnector(handler);
+            socket.setOnMessageHandler(this);
+        } catch (MalformedURLException e) {
+            Log.e(TAG, "Failed to create socket.", e);
+            return;
         }
 
-        final ListViewAdapter adapter = new ListViewAdapter(this, list);
-        listview.setAdapter(adapter);
     }
 
     @Override
@@ -51,4 +64,8 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onMessage(String message) {
+        listViewAdapter.add(message);
+    }
 }

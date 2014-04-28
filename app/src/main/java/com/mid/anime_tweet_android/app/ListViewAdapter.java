@@ -23,11 +23,20 @@ public class ListViewAdapter extends ArrayAdapter<String> {
     }
 
     @Override
+    public void add(String value) {
+        super.add(value);
+
+        // TODO メモリを消費しないように直近の30個だけリストを保持する
+
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.item_tweet, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.textView);
+
         textView.setText(values.get(position));
 
         return rowView;
