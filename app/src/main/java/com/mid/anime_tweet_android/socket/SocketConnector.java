@@ -18,7 +18,9 @@ public class SocketConnector {
 
     private static final String TAG = SocketConnector.class.getClass().getName();
 
-    public static final String SOCKET_SERVER = "http://anime-tweet.herokuapp.com/";
+    public static final String SOCKET_SERVER = "http://192.168.0.6:3000/";
+//    public static final String SOCKET_SERVER = "http://anime-tweet.herokuapp.com/";
+
     OnMessageHandler messageHandler;
 
     public void setOnMessageHandler(OnMessageHandler handler) {
@@ -35,6 +37,10 @@ public class SocketConnector {
 
             @Override
             public void on(String event, IOAcknowledge ack, Object... args) {
+                if(!event.equals("tweet")) {
+                    Log.i(TAG, event);
+                    return;
+                }
                 JSONObject json = (JSONObject) args[0];
                 final String message;
                 try {

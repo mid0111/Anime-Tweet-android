@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mid.anime_tweet_android.app" >
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,6 +17,22 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mid.anime_tweet_android.twitter.TwitterOAuthActivity"
+            android:label="@string/title_activity_twitter_oauth"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                        android:host="twitter"
+                        android:scheme="mid" />
+            </intent-filter>
+
         </activity>
     </application>
 

@@ -4,5 +4,9 @@
     <string name="app_name">Anime-Tweet-android</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_twitter_oauth">TwitterOAuthActivity</string>
+    <string name="tOAuthText">はじめに、Twitterアカウントで認証を行ないます</string>
+    <string name="tOAuthButton">Twitterアカウントで認証</string>
+    <string name="twitter_callback_url">mid://twitter</string>
 
 </resources>

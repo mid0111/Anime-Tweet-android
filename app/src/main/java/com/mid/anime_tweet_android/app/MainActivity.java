@@ -1,6 +1,7 @@
 package com.mid.anime_tweet_android.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import com.mid.anime_tweet_android.socket.OnMessageHandler;
 import com.mid.anime_tweet_android.socket.SocketConnector;
+import com.mid.anime_tweet_android.twitter.TwitterOAuthActivity;
+import com.mid.anime_tweet_android.twitter.TwitterUtils;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -23,6 +26,13 @@ public class MainActivity extends Activity implements OnMessageHandler {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (!TwitterUtils.hasAccessToken(this)) {
+            // Twitter認可されていない場合は、認可用の画面を表示
+            Intent intent = new Intent(this, TwitterOAuthActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         final ArrayList<String> list = new ArrayList<String>();
         listViewAdapter = new ListViewAdapter(this, list);
